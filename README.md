@@ -1,7 +1,5 @@
 # AI-Local-Problem-Miner
 
-# AI Local Problem Miner
-
 An AI-powered system to identify and prioritize real local problems by analyzing publicly available data from news, social media, and grievance platforms.
 
 ## Features
