@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | AI Local Problem Miner</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="auth-bg">
+
+  <div class="auth-card">
+    <div class="logo">
+      <img src="/images/logo.png" alt="logo">
+      <h2>AI Local Problem Miner</h2>
+    </div>
+
+    <h3 class="auth-title">Login</h3>
+
+    <button class="social-btn google">
+      <img src="assets/images/google.svg" alt="Google">
+      Continue with Google
+      </button>
+
+    <button class="social-btn linkedin">
+      <img src="assets/images/linkedin.svg" 
+      alt="LinkedIn">
+      Continue with LinkedIn
+      </button>
+
+
+    <div class="divider">OR</div>
+
+    <!-- REAL WORKING FORM -->
+    <form action="/auth/login" method="POST">
+      <label>E-Mail Address</label>
+      <input type="email" name="email" placeholder="Enter your email" required>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter your password" required>
+      <small>Minimum 8 characters</small>
+
+      <div class="row">
+        <label class="checkbox">
+          <input type="checkbox"> Remember me
+        </label>
+        <a href="#" class="link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="primary-btn">Login</button>
+    </form>
+
+    <p class="switch">
+      Don’t have an account? <a href="/register">Sign Up</a>
+    </p>
+  </div>
+
+  <div class="disclaimer">
+    Disclaimer: This platform is a prototype MVP developed for demonstration and research purposes.
+  </div>
+
+</body>
+</html>
