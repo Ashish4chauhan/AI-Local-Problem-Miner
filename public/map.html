@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Map View | AI Local Problem Miner</title>
+
+  <!-- Dashboard Styles -->
+  <link rel="stylesheet" href="/assets/css/dashboard.css" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <style>
+    /* MAIN CONTENT */
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      flex: 1;
+    }
+
+    /* MAP */
+    #map {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="brand">
+    <img src="/assets/images/logo.svg" />
+    <span>AI Local Problem Miner</span>
+  </div>
+
+  <div class="header-center">
+    <input type="text" placeholder="Search location..." />
+  </div>
+
+  <div class="header-right">
+    🔔
+    <img src="/assets/images/avatar.png" class="avatar" />
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <nav class="menu">
+  <a href="dashboard.html" class="nav-link active">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <rect x="3" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="14" width="7" height="7" rx="1"/>
+      <rect x="3" y="14" width="7" height="7" rx="1"/>
+    </svg>
+    Dashboard
+  </a>
+
+  <a href="problems.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12" y2="17"/>
+    </svg>
+    Problems
+  </a>
+
+  <a href="map.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    Map View
+  </a>
+
+  <a href="reports.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+    </svg>
+    Reports
+  </a>
+
+  <a href="settings.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.6 1.6 0 00.3 1.7l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.7-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.7.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.7 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.7l-.1-.1a2 2 0 012.8-2.8l.1.1a1.6 1.6 0 001.7.3 1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.7-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.7 1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/>
+    </svg>
+    Settings
+  </a>
+
+ <div class="sidebar-bottom">
+    <a href="contact.html" class="nav-link">
+  <!-- Contact icon (message-circle) -->
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5A8.48 8.48 0 0121 11v.5z"/>
+  </svg>
+  Contact Us
+</a>
+
+  </div>
+  <div class="sidebar-bottom">
+  <a href="#" onclick="logout()" class="contact">Logout</a>
+</div>
+    </nav> 
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <h1>Map View</h1>
+    <p>Visualize reported civic issues across the city.</p>
+
+    <div class="card">
+      <div id="map"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  /* INIT MAP */
+  const map = L.map("map", {
+    zoomControl: true,
+    scrollWheelZoom: true
+  });
+
+  /* TILE LAYER (REAL MAP) */
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
+
+  /* FIT TO CONNAUGHT PLACE */
+  const bounds = [
+    [28.58, 77.18],
+    [28.66, 77.27]
+  ];
+  map.fitBounds(bounds);
+
+  /* CUSTOM ICONS */
+  const icons = {
+    High: L.icon({
+      iconUrl: "https://maps.gstatic.com/mapfiles/ms2/micons/red.png",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32]
+    }),
+    Medium: L.icon({
+      iconUrl: "https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32]
+    }),
+    Low: L.icon({
+      iconUrl: "https://maps.gstatic.com/mapfiles/ms2/micons/green.png",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32]
+    })
+  };
+
+  /* ISSUES DATA */
+  const issues = [
+    {
+      lat: 28.6315,
+      lng: 77.2167,
+      title: "Potholes on Main St.",
+      location: "Connaught Place, Delhi",
+      priority: "High"
+    },
+    {
+      lat: 28.6230,
+      lng: 77.2050,
+      title: "Street Light Not Working",
+      location: "Janpath",
+      priority: "Medium"
+    },
+    {
+      lat: 28.6170,
+      lng: 77.2300,
+      title: "Garbage Overflow",
+      location: "Barakhamba Road",
+      priority: "Low"
+    }
+  ];
+
+  /* ADD MARKERS */
+  issues.forEach(issue => {
+    L.marker([issue.lat, issue.lng], {
+      icon: icons[issue.priority]
+    })
+      .addTo(map)
+      .bindPopup(`
+        <strong>${issue.title}</strong><br>
+        ${issue.location}<br><br>
+        <span style="
+          padding:6px 10px;
+          border-radius:8px;
+          background:${
+            issue.priority === "High" ? "#fee2e2" :
+            issue.priority === "Medium" ? "#fef3c7" :
+            "#dcfce7"
+          };
+          color:#111;
+          font-weight:600;
+        ">
+          ${issue.priority} Priority
+        </span>
+      `);
+  });
+
+  /* FORCE SIZE FIX */
+  setTimeout(() => {
+    map.invalidateSize();
+  }, 200);
+
+  function logout() {
+    localStorage.clear();
+    location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

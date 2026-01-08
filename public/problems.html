@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Problems | AI Local Problem Miner</title>
+
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+
+  <!-- AUTH GUARD -->
+  <script>
+    if (!localStorage.getItem("user")) {
+      window.location.replace("/index.html");
+    }
+  </script>
+
+  <style>
+    .tabs {
+      display: flex;
+      gap: 24px;
+      border-bottom: 1px solid #e5e7eb;
+      margin: 16px 0 20px;
+    }
+
+    .tab {
+      padding: 10px 4px;
+      font-weight: 600;
+      color: #6b7280;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tab.active {
+      color: #2563eb;
+    }
+
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #2563eb;
+      border-radius: 2px;
+    }
+
+    .problem-list {
+      background: #fff;
+      border-radius: 18px;
+      padding: 8px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    }
+
+    .problem-row {
+      display: grid;
+      grid-template-columns: 40px 2.5fr 1.5fr 1.3fr 1fr 1.3fr;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .problem-row:last-child {
+      border-bottom: none;
+    }
+
+    .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .icon.high { background: #ef4444; }
+    .icon.medium { background: #f59e0b; }
+    .icon.low { background: #22c55e; }
+
+    .title {
+      font-weight: 600;
+    }
+
+    .sub {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .pill.high {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .pill.medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .pill.low {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status {
+      background: #e0e7ff;
+      color: #1d4ed8;
+    }
+
+    .header-row {
+      display: grid;
+      grid-template-columns: 40px 2.5fr 1.5fr 1.3fr 1fr 1.3fr;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="brand">
+    <img src="/assets/images/logo.svg">
+    <span>AI Local Problem Miner</span>
+  </div>
+
+  <div class="header-center">
+    <input type="text" placeholder="Search problems...">
+  </div>
+
+  <div class="header-right">
+    🔔
+    <img src="/assets/images/avatar.png" class="avatar">
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+        <nav class="menu">
+  <a href="dashboard.html" class="nav-link active">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <rect x="3" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="14" width="7" height="7" rx="1"/>
+      <rect x="3" y="14" width="7" height="7" rx="1"/>
+    </svg>
+    Dashboard
+  </a>
+
+  <a href="problems.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12" y2="17"/>
+    </svg>
+    Problems
+  </a>
+
+  <a href="map.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    Map View
+  </a>
+
+  <a href="reports.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+    </svg>
+    Reports
+  </a>
+
+  <a href="settings.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.6 1.6 0 00.3 1.7l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.7-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.7.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.7 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.7l-.1-.1a2 2 0 012.8-2.8l.1.1a1.6 1.6 0 001.7.3 1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.7-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.7 1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/>
+    </svg>
+    Settings
+  </a>
+
+ <div class="sidebar-bottom">
+    <a href="contact.html" class="nav-link">
+  <!-- Contact icon (message-circle) -->
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5A8.48 8.48 0 0121 11v.5z"/>
+  </svg>
+  Contact Us
+</a>
+
+  </div>
+  <div class="sidebar-bottom">
+  <a href="#" onclick="logout()" class="contact">Logout</a>
+</div>
+   
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <h1>Prioritized Problems List</h1>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active">All</div>
+      <div class="tab">High</div>
+      <div class="tab">Medium</div>
+      <div class="tab">Low</div>
+    </div>
+
+    <!-- LIST -->
+    <div class="problem-list">
+
+      <div class="header-row">
+        <div></div>
+        <div>Problem</div>
+        <div>Location</div>
+        <div>Date Reported</div>
+        <div>Severity</div>
+        <div>Status</div>
+      </div>
+
+      <div class="problem-row">
+        <div class="icon high">!</div>
+        <div>
+          <div class="title">Pothole on Main St.</div>
+          <div class="sub">Mar 22, 2024 · 12:35 AM</div>
+        </div>
+        <div>New York, NY</div>
+        <div>Mar 22, 2024</div>
+        <div><span class="pill high">High</span></div>
+        <div><span class="pill status">In Progress</span></div>
+      </div>
+
+      <div class="problem-row">
+        <div class="icon medium">⚡</div>
+        <div>
+          <div class="title">Power Outage at Elm St.</div>
+          <div class="sub">Mar 21, 2024 · 12:35 AM</div>
+        </div>
+        <div>New York, NY</div>
+        <div>Mar 21, 2024</div>
+        <div><span class="pill high">High</span></div>
+        <div><span class="pill status">In Progress</span></div>
+      </div>
+
+      <div class="problem-row">
+        <div class="icon medium">💡</div>
+        <div>
+          <div class="title">Broken Streetlight on Pine Rd.</div>
+          <div class="sub">Mar 20, 2024 · 12:35 AM</div>
+        </div>
+        <div>New York, NY</div>
+        <div>Mar 20, 2024</div>
+        <div><span class="pill medium">Medium</span></div>
+        <div><span class="pill status">In Progress</span></div>
+      </div>
+
+      <div class="problem-row">
+        <div class="icon low">📍</div>
+        <div>
+          <div class="title">Missing Traffic Sign on Maple Dr.</div>
+          <div class="sub">Mar 18, 2024 · 12:35 AM</div>
+        </div>
+        <div>New York, NY</div>
+        <div>Mar 18, 2024</div>
+        <div><span class="pill low">Low</span></div>
+        <div><span class="pill status">In Progress</span></div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+  }
+</script>
+
+<script src="/assets/js/auth.js"></script>
+</body>
+</html>

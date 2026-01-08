@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us | AI Local Problem Miner</title>
+
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+
+  <!-- AUTH GUARD -->
+  <script>
+    const user = localStorage.getItem("user");
+    if (!user) {
+      window.location.replace("/index.html");
+    }
+  </script>
+
+  <style>
+    .contact-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+      max-width: 420px;
+      margin: 40px auto;
+    }
+
+    .contact-card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-card input,
+    .contact-card textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      font-size: 14px;
+    }
+
+    .contact-card textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    .contact-card button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .contact-note {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #64748b;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <img src="/assets/images/logo.svg">
+    <span>AI Local Problem Miner</span>
+  </div>
+
+  <div class="header-center">
+    <input type="text" placeholder="Search...">
+  </div>
+
+  <div class="header-right">
+    🔔 <img src="/assets/images/avatar.png" class="avatar">
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <nav class="menu">
+  <a href="dashboard.html" class="nav-link active">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <rect x="3" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="14" width="7" height="7" rx="1"/>
+      <rect x="3" y="14" width="7" height="7" rx="1"/>
+    </svg>
+    Dashboard
+  </a>
+
+  <a href="problems.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12" y2="17"/>
+    </svg>
+    Problems
+  </a>
+
+  <a href="map.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    Map View
+  </a>
+
+  <a href="reports.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+    </svg>
+    Reports
+  </a>
+
+  <a href="settings.html" class="nav-link">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.6 1.6 0 00.3 1.7l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.7-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.7.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.7 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.7l-.1-.1a2 2 0 012.8-2.8l.1.1a1.6 1.6 0 001.7.3 1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.7-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.7 1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/>
+    </svg>
+    Settings
+  </a>
+
+ <div class="sidebar-bottom">
+    <a href="contact.html" class="nav-link">
+  <!-- Contact icon (message-circle) -->
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5A8.48 8.48 0 0121 11v.5z"/>
+  </svg>
+  Contact Us
+</a>
+
+  </div>
+  <div class="sidebar-bottom">
+  <a href="#" onclick="logout()" class="contact">Logout</a>
+</div>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="contact-card">
+      <h2>Contact Us</h2>
+
+      <form id="contactForm">
+        <input id="name" type="text" placeholder="Full Name" required>
+        <input id="email" type="email" placeholder="Email Address" required>
+        <input id="subject" type="text" placeholder="Subject" required>
+        <textarea id="message" placeholder="Your message..." required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <p class="contact-note">
+        We usually respond within 24–48 hours.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<script src="/assets/js/auth.js"></script>
+
+<script>
+  // Autofill email from logged-in user
+  const userData = JSON.parse(localStorage.getItem("user"));
+  if (userData?.email) {
+    document.getElementById("email").value = userData.email;
+    document.getElementById("name").value = userData.fullName || "";
+  }
+
+  // Demo submit
+  document.getElementById("contactForm").addEventListener("submit", e => {
+    e.preventDefault();
+    alert("Message sent successfully (demo)");
+    e.target.reset();
+  });
+</script>
+<script src="/assets/js/auth.js"></script>
+</body>
+</html>

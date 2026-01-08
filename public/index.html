@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | AI Local Problem Miner</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+
+<body class="auth-body">
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <img src="/assets/images/logo.svg" class ="logo"  />
+      <h2>AI Local Problem Miner</h2>
+      <h3>Login</h3>
+    </div>
+
+    <button class="btn google">
+      <img src="/assets/images/google.svg" /> Continue with Google
+    </button>
+
+    <button class="btn linkedin">
+      <img src="/assets/images/linkedin.svg" /> Continue with LinkedIn
+    </button>
+
+    <div class="divider"><span>OR</span></div>
+
+    <form id="loginForm">
+      <label>E-Mail Address</label>
+      <input type="email" name="email" placeholder="Enter your email" required />
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter your password" required />
+      <small>Minimum 8 characters</small>
+
+      <div class="options">
+        <label><input type="checkbox" /> Remember me</label>
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn primary">Login</button>
+    </form>
+
+    <p class="switch">
+      Don’t have an account? <a href="/register.html">Sign Up</a>
+    </p>
+
+    <p class="disclaimer">
+      Disclaimer: This platform is a prototype MVP developed for demonstration and research purposes.
+    </p>
+  </div>
+
+<script src="/assets/js/auth.js"></script>
+</body>
+
+</html>

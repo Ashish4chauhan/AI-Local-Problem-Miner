@@ -1,0 +1,11 @@
+<script>
+  const currentPage = window.location.pathname.split("/").pop();
+
+  document.querySelectorAll(".sidebar a").forEach(link => {
+    const page = link.getAttribute("href").replace("/", "");
+
+    if (page === currentPage) {
+      link.classList.add("active");
+    }
+  });
+</script>
