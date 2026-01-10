@@ -9,9 +9,9 @@ const path = require("path");
 const app = express();
 
 /* ---------------- MIDDLEWARE ---------------- */
-app.use(cors({ origin: "*" })); // tighten later if needed
+app.use(cors({ origin: "*" })); 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // ✅ IMPORTANT
+app.use(express.urlencoded({ extended: true })); 
 
 /* ---------------- STATIC FILES ---------------- */
 app.use(express.static(path.join(__dirname, "public")));
@@ -22,17 +22,17 @@ const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306
 });
 
 db.connect(err => {
   if (err) {
     console.error("❌ DB Connection Failed:", err.message);
-    process.exit(1); // ✅ stop server if DB fails
+  } else {
+    console.log("✅ MySQL Connected");
   }
-  console.log("✅ MySQL Connected");
 });
-
 /* ---------------- REGISTER ---------------- */
 app.post("/api/register", async (req, res) => {
   const { fullName, email, password } = req.body;
